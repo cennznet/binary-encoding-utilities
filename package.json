@@ -10,11 +10,11 @@
   "author": "Centrality Developers <developers@centrality.ai>",
   "license": "UNLICENSED",
   "dependencies": {
-    "@polkadot/util": "^0.92.1",
     "jest": "^24.7.1"
   },
   "devDependencies": {
     "eslint": "^5.16.0",
-    "eslint-plugin-jest": "^22.5.1"
+    "eslint-plugin-jest": "^22.5.1",
+    "@polkadot/util": "^0.92.1"
   }
 }
