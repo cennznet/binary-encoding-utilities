@@ -1,0 +1,20 @@
+{
+  "name": "binary-encoding-utilities",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint ./src/* ./src/**/*"
+  },
+  "author": "Centrality Developers <developers@centrality.ai>",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@polkadot/util": "^0.92.1",
+    "jest": "^24.7.1"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-plugin-jest": "^22.5.1"
+  }
+}
