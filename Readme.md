@@ -1,12 +1,12 @@
 # Binary Encoding Utilities
-`binary-encoding-utilities` provides zero-dependency utlility functions for binary encoding.
+`binary-encoding-utilities` provides zero-dependency utility functions for binary encoding.
 
 ## Installing
 
 This package is not yet in the NPM registry, but you may still install it via npm:
 
 ```
-npm install --save cennznet/binary-encoding-utilities.js
+npm install --save cennznet/binary-encoding-utilities
 ```
 
 ## Development
@@ -56,7 +56,7 @@ Returns `undefined`.
 
 ```
 printBytes(
-	array: Uint8Array,
+    array: Uint8Array,
     bytes:Number={array.length},
     offset:Number=0
 ) -> Undefined
