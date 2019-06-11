@@ -8,7 +8,7 @@
     "lint": "eslint ./src/* ./src/**/*"
   },
   "author": "Centrality Developers <developers@centrality.ai>",
-  "license": "UNLICENSED",
+  "license": "Apache-2.0",
   "dependencies": {
     "jest": "^24.7.1"
   },
