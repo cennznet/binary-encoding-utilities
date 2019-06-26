@@ -1,22 +1,22 @@
-# Binary Encoding Utilities
-`binary-encoding-utilities` provides zero-dependency utility functions for binary encoding.
+# @plugnet/binary-encoding-utilities
+Provides zero-dependency utility functions for plugnet's binary encoding needs.
 
 ## Installing
 
-This package is not yet in the NPM registry, but you may still install it via npm:
-
 ```
-npm install --save cennznet/binary-encoding-utilities
+npm install --save @plugnet/binary-encoding-utilities
+// or
+yarn add @plugnet/binary-encoding-utilities
 ```
 
 ## Development
 
-Run tests:
+Testing:
 ```
 npm test
 ```
 
-Run lint:
+Linting:
 ```
 npm run lint
 ```

@@ -1,7 +1,7 @@
 {
-  "name": "binary-encoding-utilities",
+  "name": "@plugnet/binary-encoding-utilities",
   "version": "1.0.0",
-  "description": "",
+  "description": "Provides zero-dependency utility functions for plugnet's binary encoding needs.",
   "main": "src/index.js",
   "scripts": {
     "test": "jest",
@@ -16,5 +16,23 @@
     "eslint": "^5.16.0",
     "eslint-plugin-jest": "^22.5.1",
     "@polkadot/util": "^0.92.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cennznet/binary-encoding-utilities.git"
+  },
+  "keywords": [
+    "binary",
+    "encoding",
+    "utilities",
+    "flip",
+    "endianness",
+    "little",
+    "big",
+    "endian"
+  ],
+  "bugs": {
+    "url": "https://github.com/cennznet/binary-encoding-utilities/issues"
+  },
+  "homepage": "https://github.com/cennznet/binary-encoding-utilities#readme"
 }
