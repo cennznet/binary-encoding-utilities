@@ -1,11 +1,10 @@
 #!/bin/sh
 #
-# tar and post a npm package to centrality gemfury
+# Publish the package to npm
 #
 set -ex
-cd $@
-apk add --no-cache curl
-PUSH_URL="https://${GEMFURY_TOKEN}@push.fury.io/centrality/"
+echo "//registry.npmjs.org/:_authToken=${NPM_KEY}" > /root/.npmrc
+# go to project dir
+cd $@ 
 npm pack
-PACKAGE=$(ls | grep *.tgz)
-curl -sS -F package=@$PACKAGE $PUSH_URL
+npm publish --access public

@@ -17,26 +17,20 @@ pipeline {
 
     stages {
         stage('Build') {
-            environment {
-                GEMFURY_TOKEN = credentials('GEMFURY_TOKEN')
-            }
             steps {
-                sh 'docker build -f ./ci/Dockerfile -t binary-encoding-utilities .'
+                sh 'docker build -f ./ci/Dockerfile -t $SERVICE_NAME .'
             }
         }
 
         stage('Lint') {
-            environment {
-                GEMFURY_TOKEN = credentials('GEMFURY_TOKEN')
-            }
             steps {
-                sh 'docker run binary-encoding-utilities npm run lint'
+                sh 'docker run $SERVICE_NAME npm run lint'
             }
         }
 
         stage('Test') {
             steps {
-                sh 'docker run binary-encoding-utilities npm test'
+                sh 'docker run $SERVICE_NAME npm test'
             }
         }
 
@@ -48,16 +42,16 @@ pipeline {
            }
         }
 
-        stage('Publish to Gemfury') {
+        stage('Publish to NPM') {
             environment {
-                GEMFURY_TOKEN = credentials('GEMFURY_TOKEN')
+                NPM_KEY = credentials('NPM_KEY')
             }
             steps {
-                sh "docker run -e GEMFURY_TOKEN=$GEMFURY_TOKEN \
+                sh "docker run -e NPM_KEY=$NPM_KEY \
                     -v \$(pwd)/ci/:/opt/ci \
-                    -v \$(pwd):/usr/local/src/binary-encoding-utilities \
-                    binary-encoding-utilities \
-                    /opt/ci/publish.sh /usr/local/src/binary-encoding-utilities"
+                    -v \$(pwd):/usr/local/src/$SERVICE_NAME \
+                    $SERVICE_NAME \
+                    /opt/ci/publish.sh /usr/local/src/$SERVICE_NAME"
             }
         }
     }
