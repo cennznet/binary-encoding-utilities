@@ -1,0 +1,71 @@
+#!groovy
+pipeline {
+    agent {
+        label 'linux'
+    }
+
+    environment {
+        SERVICE_NAME = 'binary-encoding-utilities'
+        IMAGE_NAME = "centrality/${SERVICE_NAME}-build:1.0.${BUILD_NUMBER}"
+        GIT_NAME = 'Jenkins'
+        GIT_EMAIL = 'jenkins@centrality.ai'
+        PUBLISH_IMAGE_NAME = "centrality/${SERVICE_NAME}:1.0.${BUILD_NUMBER}"
+        LAST_COMMIT_AUTHOR = sh(script: "git log -1 --pretty=format:'%an'", returnStdout: true).trim()
+        AWS_ACCESS_KEY = credentials('TF_AWS_ACCESS_KEY')
+        AWS_SECRET_KEY = credentials('TF_AWS_SECRET_KEY')
+    }
+
+    stages {
+        stage('Build') {
+            environment {
+                GEMFURY_TOKEN = credentials('GEMFURY_TOKEN')
+            }
+            steps {
+                sh 'docker build -f ./ci/Dockerfile -t binary-encoding-utilities .'
+            }
+        }
+
+        stage('Lint') {
+            environment {
+                GEMFURY_TOKEN = credentials('GEMFURY_TOKEN')
+            }
+            steps {
+                sh 'docker run binary-encoding-utilities npm run lint'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh 'docker run binary-encoding-utilities npm test'
+            }
+        }
+
+        stage('Confirm Publish') {
+           steps {
+               timeout(time: 30, unit: 'MINUTES') {
+                   input "Confirm publish?"
+               }
+           }
+        }
+
+        stage('Publish to Gemfury') {
+            environment {
+                GEMFURY_TOKEN = credentials('GEMFURY_TOKEN')
+            }
+            steps {
+                sh "docker run -e GEMFURY_TOKEN=$GEMFURY_TOKEN \
+                    -v \$(pwd)/ci/:/opt/ci \
+                    -v \$(pwd):/usr/local/src/binary-encoding-utilities \
+                    binary-encoding-utilities \
+                    /opt/ci/publish.sh /usr/local/src/binary-encoding-utilities"
+            }
+        }
+    }
+
+    post {
+        always {
+            echo "pipeline post always"
+            sh 'bash /mnt/jenkins/script/cleanup.sh'
+        }
+    }
+}
